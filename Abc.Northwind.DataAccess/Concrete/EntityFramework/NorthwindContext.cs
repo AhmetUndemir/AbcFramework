@@ -10,7 +10,7 @@ namespace Abc.Northwind.DataAccess.Concrete.EntityFramework
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=.\SQLExpress;Database=Northwind;Trusted_Connect=true");
+            optionsBuilder.UseSqlServer(@"Data Source=.\SQLExpress;Initial Catalog=Northwind;Integrated Security=true;");
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
