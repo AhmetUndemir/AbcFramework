@@ -1,17 +1,11 @@
 ﻿@model Abc.Northwind.MvcWebUI.Models.ProductListViewModel
 @{
-    ViewData["Title"] = "Index";
+    Layout = "~/Views/_Layout.cshtml";
 }
 
-<h1>Index</h1>
 
-<html>
-<head>
-
-</head>
-<body>
     <div>
-        <table>
+        <table class="table table-responsive">
             <tr>
                 <td>Product Name</td>
                 <td>Unit Price</td>
@@ -27,5 +21,3 @@
             }
         </table>
     </div>
-</body>
-</html>
