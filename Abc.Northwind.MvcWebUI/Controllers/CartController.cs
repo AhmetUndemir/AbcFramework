@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abc.Northwind.Business.Abstract;
+using Abc.Northwind.Entities.Concrete;
 using Abc.Northwind.MvcWebUI.Models;
 using Abc.Northwind.MvcWebUI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -46,6 +47,37 @@ namespace Abc.Northwind.MvcWebUI.Controllers
             };
 
             return View(cartListViewModel);
+        }
+
+        public IActionResult Remove(int productId)
+        {
+            var cart = _cartSessionService.GetCart();
+            _cartService.RemoveFromCart(cart, productId);
+            _cartSessionService.SetCart(cart);
+            TempData.Add("message", string.Format("Your Product  was succesfully removed from the cart!"));
+            return RedirectToAction("List");
+
+        }
+
+        [HttpGet]
+        public IActionResult Complete()
+        {
+            var shippingDetailsViewModel = new ShippingDetailsViewModel
+            {
+                ShippingDetails = new ShippingDetails()
+            };
+            return View(shippingDetailsViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Complete(ShippingDetails shippingDetails)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            TempData.Add("message", String.Format("Thank You {0}, you order is in process", shippingDetails.FirstName));
+            return View();
         }
     }
 }
