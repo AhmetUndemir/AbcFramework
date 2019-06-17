@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abc.Northwind.Business.Abstract;
+using Abc.Northwind.MvcWebUI.Models;
 using Abc.Northwind.MvcWebUI.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +35,17 @@ namespace Abc.Northwind.MvcWebUI.Controllers
             TempData.Add("message", string.Format("Your Product {0}, was succesfully added to the cart!", productToBeAdded.ProductName));
 
             return RedirectToAction("Index", "Product");
+        }
+
+        public IActionResult List()
+        {
+            var cart = _cartSessionService.GetCart();
+            CartListViewModel cartListViewModel = new CartListViewModel()
+            {
+                Cart = cart
+            };
+
+            return View(cartListViewModel);
         }
     }
 }
