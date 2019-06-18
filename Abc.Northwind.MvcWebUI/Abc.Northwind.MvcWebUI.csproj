@@ -15,4 +15,10 @@
     <ProjectReference Include="..\Abc.Northwind.Business\Abc.Northwind.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\_Layout.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
