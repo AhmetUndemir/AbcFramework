@@ -12,10 +12,11 @@ namespace Abc.Northwind.MvcWebUI.Controllers
     public class AdminController : Controller
     {
         private IProductService _productService;
-
-        public AdminController(IProductService productService)
+        private ICategoryService _categoryService;
+        public AdminController(IProductService productService, ICategoryService categoryService)
         {
             _productService = productService;
+            _categoryService = categoryService;
         }
         public IActionResult Index()
         {
@@ -29,7 +30,12 @@ namespace Abc.Northwind.MvcWebUI.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            return View();
+            var model = new ProductAddViewModel
+            {
+                Product = new Product(),
+                Categories = _categoryService.GetAll()
+            };
+            return View(model);
         }
 
         [HttpPost]
@@ -40,7 +46,7 @@ namespace Abc.Northwind.MvcWebUI.Controllers
                 _productService.Add(product);
                 TempData.Add("message", "Product was successfully added");
             }
-            return View();
+            return RedirectToAction("Add");
         }
     }
 
