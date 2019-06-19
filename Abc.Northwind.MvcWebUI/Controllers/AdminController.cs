@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Abc.Northwind.Business.Abstract;
 using Abc.Northwind.Entities.Concrete;
 using Abc.Northwind.MvcWebUI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Abc.Northwind.MvcWebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private IProductService _productService;
@@ -18,6 +20,8 @@ namespace Abc.Northwind.MvcWebUI.Controllers
             _productService = productService;
             _categoryService = categoryService;
         }
+
+
         public IActionResult Index()
         {
             var productListViewModel = new ProductListViewModel
